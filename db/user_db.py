@@ -6,7 +6,7 @@ from models.User import User
 database_users = Dict[str, User]
 
 
-class UserInDB(BaseModel):
+class User(BaseModel):
     username: str
     password: str
     name: str
