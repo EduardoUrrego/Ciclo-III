@@ -27,11 +27,18 @@ def usersUpdate(dataUpdate: dict):
                          "email": dataUpdate["email"]
                          })
     update_user(userUpdate)
-
+    return "Update User ok"
 
 @api.post("/users")
-def saveUser(user: User):
-    set_user(user)
+def saveuser(user: dict):
+    usercreate = User(**{"username": user["username"],
+                         "password": user["password"],
+                         "name": user["name"],
+                         "last_name": user["last_name"],
+                         "email": user["email"]
+                         })
+    set_user(usercreate)
+    return "Add User ok"
 
 ### Delete a User ###
 @api.delete("/user/{user}")
