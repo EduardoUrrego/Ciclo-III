@@ -1,4 +1,4 @@
-from db.user_db import get_user, set_user, get_users, update_user
+from db.user_db import get_user, set_user, get_users, update_user, delete_user
 # from db.user_db import update_user, get_user
 # from db.user_db import UserInDB
 
@@ -33,6 +33,11 @@ def usersUpdate(dataUpdate: dict):
 def saveUser(user: User):
     set_user(user)
 
+### Delete a User ###
+@api.delete("/user/{user}")
+def deleteuser(user: str):
+    """ Delete a user by username"""
+    return delete_user(user)
 
 # # editar un usuario
 
