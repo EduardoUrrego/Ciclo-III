@@ -1,4 +1,3 @@
-# cuendo se cree el metodo update_user, remplazar por linea de abajo
 from db.user_db import get_user, set_user, get_users, update_user
 # from db.user_db import update_user, get_user
 # from db.user_db import UserInDB
@@ -11,8 +10,7 @@ api = FastAPI()
 
 @api.get("/user/{username}")
 def getUser(username: str):
-    print(username)
-    get_user(username)
+    return get_user(username)
 
 
 @api.get("/users/")

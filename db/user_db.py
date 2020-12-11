@@ -61,7 +61,7 @@ def get_user(username: str):
     if username in database_users.keys():
         return database_users[username]
     else:
-        return 55555
+        return None
 
 
 def get_users():
