@@ -1,9 +1,13 @@
 from pydantic import BaseModel
 
-class UserIn(BaseModel):
+class User(BaseModel):
     username: str
     password: str
+    name: str
+    last_name: str
+    email: str
+    
 
 class UserOut(BaseModel):
-    username: str
-    balance: int
+    name: str
+    last_name: str
