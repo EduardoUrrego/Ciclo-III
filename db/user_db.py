@@ -61,9 +61,19 @@ def get_user(username: str):
     if username in database_users.keys():
         return database_users[username]
     else:
-        return None
+        return 55555
+
+
+def get_users():
+    return database_users
 
 
 def set_user(user_in_db: User):
     database_users[user_in_db.username] = user_in_db
     return user_in_db
+
+
+def update_user(userUpdate: User):
+    print(database_users[userUpdate.username])
+    database_users[userUpdate.username] = userUpdate
+    print(database_users[userUpdate.username])
