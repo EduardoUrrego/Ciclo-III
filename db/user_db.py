@@ -1,7 +1,7 @@
 from typing import  Dict
 from pydantic import BaseModel
 
-from models.User import User
+
 
 database_users = Dict[str, User]
 
