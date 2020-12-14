@@ -1,11 +1,20 @@
 from db.user_db import get_user, set_user, get_users, update_user, delete_user
 # from db.user_db import update_user, get_user
 # from db.user_db import UserInDB
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from models.User import User
 
 api = FastAPI()
+
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
 
 @api.get("/user/{username}")
