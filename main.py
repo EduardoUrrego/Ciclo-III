@@ -1,5 +1,6 @@
 from db.user_db import get_user, set_user, get_users, update_user, delete_user
 from fastapi.middleware.cors import CORSMiddleware
+
 from fastapi import FastAPI
 from models.User import User
 
