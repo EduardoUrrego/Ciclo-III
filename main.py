@@ -1,74 +1,82 @@
 from db.user_db import get_user, set_user, get_users, update_user, delete_user
-# from db.user_db import update_user, get_user
-# from db.user_db import UserInDB
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from models.User import User
 
 api = FastAPI()
 
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@api.get("/user/{username}")
+
+@api.get("/usuario/{username}")
 def getUser(username: str):
     return get_user(username)
 
 
-@api.get("/users/")
+@api.get("/usuario/todos/")
 def usersGetAll():
     return get_users()
 
 
-@api.put("/users")
+@api.put("/usuario/actualizar")
 def usersUpdate(dataUpdate: dict):
-    userUpdate = User(**{"username": dataUpdate["username"],
-                         "password": dataUpdate["password"],
-                         "name": dataUpdate["name"],
-                         "last_name": dataUpdate["last_name"],
-                         "email": dataUpdate["email"]
-                         })
-    update_user(userUpdate)
-    return "Update User ok"
+    try:
+        userUpdate = User(**{"username": dataUpdate["username"],
+                             "password": dataUpdate["password"],
+                             "name": dataUpdate["name"],
+                             "last_name": dataUpdate["last_name"],
+                             "email": dataUpdate["email"]
+                             })
+        response = {"res": "usuario actualizado",
+                    "data": update_user(userUpdate)}
+        return response
+    except:
+        return "se presento error"
 
-@api.post("/users")
+
+@api.post("/usuario/crear")
 def saveuser(user: dict):
-    usercreate = User(**{"username": user["username"],
-                         "password": user["password"],
-                         "name": user["name"],
-                         "last_name": user["last_name"],
-                         "email": user["email"]
-                         })
-    set_user(usercreate)
-    return "Add User ok"
+    try:
+        usercreate = User(**{"username": user["username"],
+                             "password": user["password"],
+                             "name": user["name"],
+                             "last_name": user["last_name"],
+                             "email": user["email"]
+                             })
+        result = set_user(usercreate)
+        res = {
+            'tipo': "ok",
+            'msg': 'se creo el usuario',
+            'data': result,
+        }
+        return res
+    except:
+        res = {
+            'res': None,
+            'msg': 'no se creo el usuario'
+        }
+        return res
 
-### Delete a User ###
-@api.delete("/user/{user}")
+
+@api.delete("/usuario/eliminar/{username}")
 def deleteuser(user: str):
-    """ Delete a user by username"""
-    return delete_user(user)
-
-# # editar un usuario
-
-# @api.put("/user/editar")
-# async def make_edition(edition_in: User):
-
-#     user_in_db = get_user(edition_in.username)
-
-#     if user_in_db == None:
-#         raise HTTPException(status_code=404,
-#                             detail='El usuario no existe')
-
-#     user_in_db.password = edition_in.password
-#     user_in_db.email = edition_in.email
-#     update_user(user_in_db)
-
-#     edition_in_db = User(**edition_in.dict(),
-#                          password=user_in_db.password)
-
-#     edition_in_db = User(**edition_in.dict(),
-#                          email=user_in_db.email)
-
-#     edition_in_db = set_user(edition_in_db)
-
-#     edition_out = UserOut(**edition_in_db.dict())
-
-#     return edition_out
+    try:
+        result = delete_user(user)
+        res = {
+            'res': True,
+            'msg': 'se elimino el usuario',
+            'data': result,
+        }
+        return res
+    except:
+        res = {
+            'res': False,
+            'msg': 'no se elimino el usuario'
+        }
+        return res
