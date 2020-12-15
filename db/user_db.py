@@ -78,7 +78,7 @@ def update_user(userUpdate: User):
     database_users[userUpdate.username] = userUpdate
     print(database_users[userUpdate.username])
 
+
 def delete_user(username: str):
-    """ Delete a user by username """
     del database_users[username]
     return database_users
