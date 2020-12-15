@@ -1,2 +1,2 @@
 ﻿# Gestionapp
-git
+Already deploy in Heroku
