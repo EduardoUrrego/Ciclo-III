@@ -95,16 +95,21 @@ def customers_get_all():
 
 
 @api.put("/customer/actualizar")
-def customersUpdate(dataUpdate: dict):
+def customerupdate(dataupdate: dict):
     try:
-        customerUpdate = Customer(**{"codigo": dataUpdate["codigo"],
-                             "password": dataUpdate["password"],
-                             "name": dataUpdate["name"],
-                             "last_name": dataUpdate["last_name"],
-                             "email": dataUpdate["email"]
+        customerupdate = Customer(**{"codigo": dataupdate["codigo"],
+                             "documento": dataupdate["documento"],
+                             "name": dataupdate["name"],
+                             "last_name": dataupdate["last_name"],
+                             "email": dataupdate["email"],
+                             "fecha": dataupdate["fecha"],
+                            "direccion": dataupdate["direccion"],
+                            "telefono": dataupdate["telefono"],
+                            "celular": dataupdate["celular"],
+                            "genero": dataupdate["genero"],
                              })
         response = {"res": "Cliente actualizado",
-                    "data": update_customer(customerUpdate)}
+                    "data": update_customer(customerupdate)}
         return response
     except:
         return "se presento error"
@@ -117,7 +122,12 @@ def savecustomer(customer: dict):
                              "documento": customer["documento"],
                              "name": customer["name"],
                              "last_name": customer["last_name"],
-                             "email": customer["email"]
+                             "email": customer["email"],
+                             "fecha": customer["fecha"],
+                            "direccion": customer["direccion"],
+                            "telefono": customer["telefono"],
+                            "celular": customer["celular"],
+                            "genero": customer["genero"],
                              })
         result = set_customer(customercreate)
         res = {
