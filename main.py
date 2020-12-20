@@ -1,8 +1,10 @@
 from db.user_db import get_user, set_user, get_users, update_user, delete_user
+from db.customer_db import get_customer, set_customer, get_customers, update_customer, delete_customer
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from models.User import User
+from models.Customer import Customer
 
 api = FastAPI()
 
@@ -79,5 +81,72 @@ def deleteuser(user: str):
         res = {
             'res': False,
             'msg': 'no se elimino el usuario'
+        }
+        return res
+# Customers
+@api.get("/customer/{codigo}")
+def getcustomer(codigo: str):
+    return get_customer(codigo)
+
+
+@api.get("/customer/todos/")
+def customers_get_all():
+    return get_customers()
+
+
+@api.put("/customer/actualizar")
+def customersUpdate(dataUpdate: dict):
+    try:
+        customerUpdate = Customer(**{"codigo": dataUpdate["codigo"],
+                             "password": dataUpdate["password"],
+                             "name": dataUpdate["name"],
+                             "last_name": dataUpdate["last_name"],
+                             "email": dataUpdate["email"]
+                             })
+        response = {"res": "Cliente actualizado",
+                    "data": update_customer(customerUpdate)}
+        return response
+    except:
+        return "se presento error"
+
+
+@api.post("/customer/crear")
+def savecustomer(customer: dict):
+    try:
+        customercreate = Customer(**{"codigo": customer["codigo"],
+                             "documento": customer["documento"],
+                             "name": customer["name"],
+                             "last_name": customer["last_name"],
+                             "email": customer["email"]
+                             })
+        result = set_customer(customercreate)
+        res = {
+            'tipo': "ok",
+            'msg': 'se creo el cliente',
+            'data': result,
+        }
+        return res
+    except:
+        res = {
+            'res': None,
+            'msg': 'no se creo el cliente'
+        }
+        return res
+
+
+@api.delete("/customer/eliminar/{codigo}")
+def deletecustomer(customer: str):
+    try:
+        result = delete_customer(customer)
+        res = {
+            'res': True,
+            'msg': 'se elimino el cliente',
+            'data': result,
+        }
+        return res
+    except:
+        res = {
+            'res': False,
+            'msg': 'no se elimino el cliente'
         }
         return res
