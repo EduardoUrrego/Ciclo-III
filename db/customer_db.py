@@ -19,7 +19,7 @@ class Customer(BaseModel):
 
 
 database_customers = {
-    "2020001": Customer(**{"codigo": "pperezl",
+    "2020001": Customer(**{"codigo": "2020001",
                        "documento": "1234",
                        "name": "Pepito",
                        "last_name": "Perez",
@@ -31,8 +31,8 @@ database_customers = {
                        "genero": "masculino",
                        }),
 
-    "2020002": Customer(**{"codigo": "majo39",
-                      "documento": "LuciOP",
+    "2020002": Customer(**{"codigo": "2020002",
+                      "documento": "5678",
                       "name": "Maria",
                       "last_name": "Martinez",
                       "email": "majo39@gmail.com",
@@ -43,8 +43,8 @@ database_customers = {
                        "genero": "femenino",
                        }),
 
-    "2020003": Customer(**{"codigo": "natsuki",
-                       "documento": "gg962",
+    "2020003": Customer(**{"codigo": "2020003",
+                       "documento": "8912",
                        "name": "Angie",
                        "last_name": "Lopez",
                        "email": "alopez@hotmail.com", 
@@ -73,10 +73,10 @@ def set_customer(customer_in_db: Customer):
     return customer_in_db
 
 
-def update_customer(customerUpdate: Customer):
-    print(database_customers[customerUpdate.codigo])
-    database_customers[customerUpdate.codigo] = customerUpdate
-    print(database_customers[customerUpdate.codigo])
+def update_customer(customerupdate: Customer):
+    print(database_customers[customerupdate.codigo])
+    database_customers[customerupdate.codigo] = customerupdate
+    print(database_customers[customerupdate.codigo])
 
 
 def delete_customer(codigo: str):
